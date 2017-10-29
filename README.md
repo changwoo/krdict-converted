@@ -13,7 +13,8 @@ $ python3 update-upstream.py .../123456.zip
 
 ## 빌드
 
-make, xsltproc이 필요합니다. make를 실행하면 dict.xdxf를 만듭니다.
+make, xsltproc, dictzip이 필요합니다. make를 실행하면 dict.xdxf.dz 파일을
+만듭니다.
 
 ```
 $ make
