@@ -1,5 +1,5 @@
-XDXF = dict.xdxf.dz
-MERGED_XML = merged.xml
+XDXF = out/dict.xdxf.dz
+MERGED_XML = out/merged.xml
 UPSTREAM_XML = upstream/0.xml upstream/1.xml
 
 .PHONY:
@@ -10,11 +10,14 @@ all: build
 build: $(XDXF)
 
 clean:
-	rm -f $(XDXF)
+	-rm -r out
 	rm -f $(MERGED_XML)
 
-dict.xdxf.dz: $(MERGED_XML) krdict2xdxf.xsl
-	xsltproc -o dict.xdxf krdict2xdxf.xsl $< && dictzip dict.xdxf
-
 $(MERGED_XML): $(UPSTREAM_XML)
+	@-mkdir out
 	python3 merge-upstream.py $@ $^
+
+out/dict.xdxf.dz: $(MERGED_XML) krdict2xdxf.xsl
+	@-mkdir out
+	xsltproc -o out/dict.xdxf krdict2xdxf.xsl $< && dictzip out/dict.xdxf
+

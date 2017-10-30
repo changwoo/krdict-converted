@@ -1,7 +1,22 @@
-# 한국어기초사전 XDXF
+# 한국어기초사전 포맷 변환
 
-국립국어원의 한국어기초사전에서 다운로드한 XML 데이터를 XDXF 형식으로 변환한
-사전입니다. 여러가지 사전 프로그램에서 사용할 수 있습니다.
+국립국어원의 한국어기초사전에서 (https://krdict.korean.go.kr/) 다운로드한 XML
+데이터를 여러가지 사전 형식으로 변환하는 소스입니다. 여러가지 사전
+프로그램에서 사용할 수 있습니다.
+
+## 포맷
+
+* dict.xdxf.dz (XDXF) - GoldenDict 등
+* dictd - dictd
+
+## 빌드
+
+make, xsltproc, dictzip이 필요합니다. make를 실행하면 여러가지 포맷의 사전을
+만듭니다.
+
+```
+$ make
+```
 
 ## 한국어기초사전의 업스트림 데이터 업데이트
 
@@ -10,15 +25,6 @@
 있습니다. 다운로드한 파일이 .../123456.zip 파일이라고 하면,
 
 $ python3 update-upstream.py .../123456.zip
-
-## 빌드
-
-make, xsltproc, dictzip이 필요합니다. make를 실행하면 dict.xdxf.dz 파일을
-만듭니다.
-
-```
-$ make
-```
 
 ## 기타
 
