@@ -7,6 +7,7 @@ import zipfile
 def do_extract(filename, outdir):
     zf = zipfile.ZipFile(filename)
     members = zf.namelist()
+    members.sort()
     found_xml_invalid = False
     for member, i in zip(members, range(0, len(members))):
         s = zf.open(member).read().decode('UTF-8')
