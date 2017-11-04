@@ -1,21 +1,31 @@
 #!/usr/bin/python3
 
 import sys
-import zipfile
-import xml.etree.ElementTree as ET
 
 def merge_xml(filenames, outfilename):
     xmldata = None
+    header = ''
+    footer = ''
+    entries = []
     for filename in filenames:
-        root = ET.parse(filename).getroot()
-        if xmldata == None:
-            xmldata = ET.ElementTree()
-            xmldata._setroot(root)
-        else:
-            entries = root[1].findall('LexicalEntry')
-            for e in entries:
-                xmldata.getroot()[1].append(e)
-    xmldata.write(outfilename, encoding='UTF-8')
+        content = open(filename, encoding='UTF-8').read()
+        a = content.find('<LexicalEntry')
+        b = content.rfind('</LexicalEntry>')
+        if a < 0 or b < 0:
+            raise Exception("LexicalEntry not found")
+        b += len('</LexicalEntry>')
+
+        if header == '':
+            header = content[:a]
+            footer = content[b:]
+
+        entries.append(content[a:b])
+
+    with open(outfilename, 'w', encoding='UTF-8') as fp:
+        fp.write(header)
+        for e in entries:
+            fp.write(e)
+        fp.write(footer)
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
